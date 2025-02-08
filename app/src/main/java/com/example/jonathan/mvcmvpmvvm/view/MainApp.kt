@@ -13,11 +13,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.jonathan.mvcmvpmvvm.mvc.MvcController
+import com.example.jonathan.mvcmvpmvvm.mvp.MvpPresenter
 import com.example.jonathan.mvcmvpmvvm.mvvm.MvvmViewModel
 
 @Composable
 fun MainApp(
     mvcController: MvcController,
+    mvpPresenter: MvpPresenter,
     mvpText: String,
     mvvmViewModel: MvvmViewModel,
     onButtonClick: () -> Unit
@@ -28,7 +30,7 @@ fun MainApp(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         MvcButton(mvcController)
-        MvpButton(mvpText, onButtonClick)
+        MvpButton(mvpPresenter, mvpText)
         MvvmButton(mvvmViewModel, { mvvmViewModel.onMvvmButtonClick() })
     }
 }
@@ -50,8 +52,8 @@ fun MvcButton(mvcController: MvcController) {
 }
 
 @Composable
-fun MvpButton(mvpText: String, onButtonClick: () -> Unit) {
-    Button(onClick = onButtonClick) {
+fun MvpButton(mvpPresenter: MvpPresenter, mvpText: String) {
+    Button(onClick = { mvpPresenter.onMvpButtonClicked() }) {
         Text("MVP")
     }
 

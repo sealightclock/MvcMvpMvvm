@@ -33,6 +33,7 @@ class MainActivity : ComponentActivity(), MainView {
         setContent {
             MainApp(
                 mvcController,
+                mvpPresenter,
                 mvpText,
                 mvvmViewModel
             ) {
@@ -46,6 +47,7 @@ class MainActivity : ComponentActivity(), MainView {
         setContent {
             MainApp(
                 mvcController,
+                mvpPresenter,
                 mvpText,
                 mvvmViewModel
             ) {
