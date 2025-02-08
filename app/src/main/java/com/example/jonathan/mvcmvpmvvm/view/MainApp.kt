@@ -20,7 +20,7 @@ import androidx.compose.ui.unit.sp
 import com.example.jonathan.mvcmvpmvvm.mvc.MvcController
 
 @Composable
-fun MainApp(mvcController: MvcController) {
+fun MainApp(mvcController: MvcController, displayedText: String, onButtonClick: () -> Unit) {
     var selectedArchitecture by remember { mutableStateOf("") }
 
     Column(
@@ -33,7 +33,7 @@ fun MainApp(mvcController: MvcController) {
         Spacer(modifier = Modifier.height(16.dp))
 
         MvcButton(mvcController)
-        SpecialButton("MVP") { selectedArchitecture = "MVP" }
+        MvpButton(displayedText, onButtonClick)
         SpecialButton("MVVM") { selectedArchitecture = "MVVM" }
 
         Spacer(modifier = Modifier.height(24.dp))
@@ -63,7 +63,22 @@ fun MvcButton(mvcController: MvcController) {
         Text(text = "MVC")
     }
 
+    Spacer(modifier = Modifier.height(16.dp))
+
     if (mvcController.displayedText.isNotEmpty()) {
         Text(text = mvcController.displayedText)
+    }
+}
+
+@Composable
+fun MvpButton(displayedText: String, onButtonClick: () -> Unit) {
+    Button(onClick = onButtonClick) {
+        Text("MVP")
+    }
+
+    Spacer(modifier = Modifier.height(16.dp))
+
+    if (displayedText.isNotEmpty()) {
+        Text(text = displayedText)
     }
 }
