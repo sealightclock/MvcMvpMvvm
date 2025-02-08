@@ -6,10 +6,10 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 
 class MvvmViewModel : ViewModel() {
-    var buttonText by mutableStateOf("")
+    var mvvmText by mutableStateOf("")
         private set
 
-    fun onButtonClick(text: String) {
-        buttonText = text
+    fun onMvvmButtonClick(text: String) {
+        mvvmText = text
     }
 }

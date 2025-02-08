@@ -1,13 +1,13 @@
 package com.example.jonathan.mvcmvpmvvm.mvp
 
 interface MainView {
-    fun showText(text: String)
+    fun showMvpText(text: String)
 }
 
 class MvpPresenter(private val view: MainView) {
-    private val model = MvpModel()
+    private val mvpModel = MvpModel()
 
-    fun onButtonClicked() {
-        view.showText(model.label)
+    fun onMvpButtonClicked() {
+        view.showMvpText(mvpModel.mvpText)
     }
 }

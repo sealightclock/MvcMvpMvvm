@@ -19,8 +19,8 @@ class MainActivity : ComponentActivity(), MainView {
     private val mvcController = MvcController(mvcModel)
 
     // MVP
-    private lateinit var presenter: MvpPresenter
-    private var displayedText by mutableStateOf("")
+    private lateinit var mvpPresenter: MvpPresenter
+    private var mvpText by mutableStateOf("")
 
     // MVVM
     private var mvvmViewModel = MvvmViewModel()
@@ -28,28 +28,30 @@ class MainActivity : ComponentActivity(), MainView {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        presenter = MvpPresenter(this)
+        mvpPresenter = MvpPresenter(this)
 
         setContent {
-            MainApp(mvcController,
-                displayedText,
+            MainApp(
+                mvcController,
+                mvpText,
                 mvvmViewModel
             ) {
-                presenter.onButtonClicked()
+                mvpPresenter.onMvpButtonClicked()
             }
         }
     }
 
-    override fun showText(text: String) {
-        displayedText = text
+    override fun showMvpText(text: String) {
+        mvpText = text
         setContent {
             MainApp(
                 mvcController,
-                displayedText,
+                mvpText,
                 mvvmViewModel
             ) {
-                presenter.onButtonClicked()
+                mvpPresenter.onMvpButtonClicked()
             }
         }
     }
 }
+
