@@ -17,9 +17,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.jonathan.mvcmvpmvvm.mvc.MvcController
 
 @Composable
-fun MainApp() {
+fun MainApp(mvcController: MvcController) {
     var selectedArchitecture by remember { mutableStateOf("") }
 
     Column(
@@ -31,7 +32,7 @@ fun MainApp() {
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        SpecialButton("MVC") { selectedArchitecture = "MVC" }
+        MvcButton(mvcController)
         SpecialButton("MVP") { selectedArchitecture = "MVP" }
         SpecialButton("MVVM") { selectedArchitecture = "MVVM" }
 
@@ -50,5 +51,19 @@ fun SpecialButton(label: String, onClick: () -> Unit) {
         modifier = Modifier.padding(8.dp)
     ) {
         Text(text = label)
+    }
+}
+
+@Composable
+fun MvcButton(mvcController: MvcController) {
+    Button(
+        onClick = { mvcController.onButtonClick() },
+        modifier = Modifier.padding(8.dp)
+    ) {
+        Text(text = "MVC")
+    }
+
+    if (mvcController.displayedText.isNotEmpty()) {
+        Text(text = mvcController.displayedText)
     }
 }
