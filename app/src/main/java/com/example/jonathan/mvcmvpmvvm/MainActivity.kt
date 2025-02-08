@@ -36,9 +36,7 @@ class MainActivity : ComponentActivity(), MainView {
                 mvpPresenter,
                 mvpText,
                 mvvmViewModel
-            ) {
-                mvpPresenter.onMvpButtonClicked()
-            }
+            )
         }
     }
 
@@ -50,10 +48,7 @@ class MainActivity : ComponentActivity(), MainView {
                 mvpPresenter,
                 mvpText,
                 mvvmViewModel
-            ) {
-                mvpPresenter.onMvpButtonClicked()
-            }
+            )
         }
     }
 }
-

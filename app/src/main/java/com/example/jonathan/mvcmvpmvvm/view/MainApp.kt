@@ -21,8 +21,7 @@ fun MainApp(
     mvcController: MvcController,
     mvpPresenter: MvpPresenter,
     mvpText: String,
-    mvvmViewModel: MvvmViewModel,
-    onButtonClick: () -> Unit
+    mvvmViewModel: MvvmViewModel
 ) {
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -31,7 +30,7 @@ fun MainApp(
     ) {
         MvcButton(mvcController)
         MvpButton(mvpPresenter, mvpText)
-        MvvmButton(mvvmViewModel, { mvvmViewModel.onMvvmButtonClick() })
+        MvvmButton(mvvmViewModel)
     }
 }
 
@@ -65,7 +64,7 @@ fun MvpButton(mvpPresenter: MvpPresenter, mvpText: String) {
 }
 
 @Composable
-fun MvvmButton(mvvmViewModel: MvvmViewModel, onClick: () -> Unit) {
+fun MvvmButton(mvvmViewModel: MvvmViewModel) {
     Button(onClick = { mvvmViewModel.onMvvmButtonClick() }) {
         Text("MVVM")
     }
