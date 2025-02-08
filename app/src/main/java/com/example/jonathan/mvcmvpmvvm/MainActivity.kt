@@ -10,6 +10,7 @@ import com.example.jonathan.mvcmvpmvvm.mvc.MvcController
 import com.example.jonathan.mvcmvpmvvm.mvc.MvcModel
 import com.example.jonathan.mvcmvpmvvm.mvp.MainView
 import com.example.jonathan.mvcmvpmvvm.mvp.MvpPresenter
+import com.example.jonathan.mvcmvpmvvm.mvvm.MvvmViewModel
 import com.example.jonathan.mvcmvpmvvm.view.MainApp
 
 class MainActivity : ComponentActivity(), MainView {
@@ -21,6 +22,9 @@ class MainActivity : ComponentActivity(), MainView {
     private lateinit var presenter: MvpPresenter
     private var displayedText by mutableStateOf("")
 
+    // MVVM
+    private var mvvmViewModel = MvvmViewModel()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -28,7 +32,8 @@ class MainActivity : ComponentActivity(), MainView {
 
         setContent {
             MainApp(mvcController,
-                displayedText
+                displayedText,
+                mvvmViewModel
             ) {
                 presenter.onButtonClicked()
             }
@@ -40,7 +45,8 @@ class MainActivity : ComponentActivity(), MainView {
         setContent {
             MainApp(
                 mvcController,
-                displayedText
+                displayedText,
+                mvvmViewModel
             ) {
                 presenter.onButtonClicked()
             }

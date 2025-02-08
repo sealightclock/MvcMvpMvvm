@@ -18,9 +18,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.jonathan.mvcmvpmvvm.mvc.MvcController
+import com.example.jonathan.mvcmvpmvvm.mvvm.MvvmViewModel
 
 @Composable
-fun MainApp(mvcController: MvcController, displayedText: String, onButtonClick: () -> Unit) {
+fun MainApp(
+    mvcController: MvcController,
+    displayedText: String,
+    mvvmViewModel: MvvmViewModel,
+    onButtonClick: () -> Unit
+) {
     var selectedArchitecture by remember { mutableStateOf("") }
 
     Column(
@@ -34,23 +40,7 @@ fun MainApp(mvcController: MvcController, displayedText: String, onButtonClick: 
 
         MvcButton(mvcController)
         MvpButton(displayedText, onButtonClick)
-        SpecialButton("MVVM") { selectedArchitecture = "MVVM" }
-
-        Spacer(modifier = Modifier.height(24.dp))
-
-        if (selectedArchitecture.isNotEmpty()) {
-            Text(text = "Data taken via $selectedArchitecture", fontSize = 24.sp)
-        }
-    }
-}
-
-@Composable
-fun SpecialButton(label: String, onClick: () -> Unit) {
-    Button(
-        onClick = onClick,
-        modifier = Modifier.padding(8.dp)
-    ) {
-        Text(text = label)
+        MvvmButton(mvvmViewModel, { mvvmViewModel.onButtonClick("Data taken from MVVM") })
     }
 }
 
@@ -80,5 +70,18 @@ fun MvpButton(displayedText: String, onButtonClick: () -> Unit) {
 
     if (displayedText.isNotEmpty()) {
         Text(text = displayedText)
+    }
+}
+
+@Composable
+fun MvvmButton(mvvmViewModel: MvvmViewModel, onClick: () -> Unit) {
+    Button(onClick = { mvvmViewModel.onButtonClick("Data taken from MVVM") }) {
+        Text("MVVM")
+    }
+
+    Spacer(modifier = Modifier.height(16.dp))
+
+    if (mvvmViewModel.buttonText.isNotEmpty()) {
+        Text(mvvmViewModel.buttonText)
     }
 }
