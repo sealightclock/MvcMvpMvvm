@@ -34,7 +34,6 @@ class MainActivity : ComponentActivity(), MainView {
             MainApp(
                 mvcController,
                 mvpPresenter,
-                mvpText,
                 mvvmViewModel
             )
         }
@@ -46,7 +45,6 @@ class MainActivity : ComponentActivity(), MainView {
             MainApp(
                 mvcController,
                 mvpPresenter,
-                mvpText,
                 mvvmViewModel
             )
         }

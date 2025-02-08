@@ -7,7 +7,10 @@ interface MainView {
 class MvpPresenter(private val view: MainView) {
     private val mvpModel = MvpModel()
 
+    var mvpText: String = ""
+
     fun onMvpButtonClicked() {
-        view.showMvpText(mvpModel.mvpText)
+        mvpText = mvpModel.mvpText
+        view.showMvpText(mvpText)
     }
 }

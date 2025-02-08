@@ -20,7 +20,6 @@ import com.example.jonathan.mvcmvpmvvm.mvvm.MvvmViewModel
 fun MainApp(
     mvcController: MvcController,
     mvpPresenter: MvpPresenter,
-    mvpText: String,
     mvvmViewModel: MvvmViewModel
 ) {
     Column(
@@ -29,7 +28,7 @@ fun MainApp(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         MvcButton(mvcController)
-        MvpButton(mvpPresenter, mvpText)
+        MvpButton(mvpPresenter)
         MvvmButton(mvvmViewModel)
     }
 }
@@ -51,27 +50,33 @@ fun MvcButton(mvcController: MvcController) {
 }
 
 @Composable
-fun MvpButton(mvpPresenter: MvpPresenter, mvpText: String) {
-    Button(onClick = { mvpPresenter.onMvpButtonClicked() }) {
+fun MvpButton(mvpPresenter: MvpPresenter) {
+    Button(
+        onClick = { mvpPresenter.onMvpButtonClicked() },
+        modifier = Modifier.padding(8.dp)
+    ) {
         Text("MVP")
     }
 
     Spacer(modifier = Modifier.height(16.dp))
 
-    if (mvpText.isNotEmpty()) {
-        Text(text = mvpText)
+    if (mvpPresenter.mvpText.isNotEmpty()) {
+        Text(text = mvpPresenter.mvpText)
     }
 }
 
 @Composable
 fun MvvmButton(mvvmViewModel: MvvmViewModel) {
-    Button(onClick = { mvvmViewModel.onMvvmButtonClick() }) {
+    Button(
+        onClick = { mvvmViewModel.onMvvmButtonClick() },
+        modifier = Modifier.padding(8.dp)
+    ) {
         Text("MVVM")
     }
 
     Spacer(modifier = Modifier.height(16.dp))
 
     if (mvvmViewModel.mvvmText.isNotEmpty()) {
-        Text(mvvmViewModel.mvvmText)
+        Text(text = mvvmViewModel.mvvmText)
     }
 }

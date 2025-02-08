@@ -6,7 +6,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 
 class MvvmViewModel : ViewModel() {
-    val mvvmModel = MvvmModel()
+    private val mvvmModel = MvvmModel()
 
     var mvvmText by mutableStateOf("")
         private set
