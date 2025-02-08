@@ -29,7 +29,7 @@ fun MainApp(
     ) {
         MvcButton(mvcController)
         MvpButton(mvpText, onButtonClick)
-        MvvmButton(mvvmViewModel, { mvvmViewModel.onMvvmButtonClick("Data taken from MVVM") })
+        MvvmButton(mvvmViewModel, { mvvmViewModel.onMvvmButtonClick() })
     }
 }
 
@@ -64,7 +64,7 @@ fun MvpButton(mvpText: String, onButtonClick: () -> Unit) {
 
 @Composable
 fun MvvmButton(mvvmViewModel: MvvmViewModel, onClick: () -> Unit) {
-    Button(onClick = { mvvmViewModel.onMvvmButtonClick("Data taken from MVVM") }) {
+    Button(onClick = { mvvmViewModel.onMvvmButtonClick() }) {
         Text("MVVM")
     }
 
