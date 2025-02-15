@@ -9,6 +9,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -22,61 +26,67 @@ fun MainApp(
     mvpPresenter: MvpPresenter,
     mvvmViewModel: MvvmViewModel
 ) {
+    // This approach ensures state hoisting, keeping the source of truth in the parent and allowing
+    // child functions to modify it via callbacks.
+    var textValue by remember { mutableStateOf("initial text") }
+
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        MvcButton(mvcController)
-        MvpButton(mvpPresenter)
-        MvvmButton(mvvmViewModel)
+        MvcButton(mvcController, updateText = { newValue -> textValue = newValue })
+        MvpButton(mvpPresenter, updateText = { newValue -> textValue = newValue })
+        MvvmButton(mvvmViewModel, updateText = { newValue -> textValue = newValue })
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        Text(text = textValue)
     }
 }
 
+/**
+ * In Jetpack Compose, functions are composable and follow a unidirectional data flow (UDF) model,
+ * which means that one function cannot directly modify a variable in another function. However,
+ * you can achieve this behavior using state hoisting and mutable state variables.
+ */
 @Composable
-fun MvcButton(mvcController: MvcController) {
+fun MvcButton(mvcController: MvcController, updateText: (String) -> Unit) {
     Button(
-        onClick = { mvcController.onMvcButtonClick() },
+        onClick = {
+            mvcController.onMvcButtonClick()
+            updateText(mvcController.mvcText)
+                  },
         modifier = Modifier.padding(8.dp)
     ) {
         Text(text = "MVC")
     }
-
-    Spacer(modifier = Modifier.height(16.dp))
-
-    if (mvcController.mvcText.isNotEmpty()) {
-        Text(text = mvcController.mvcText)
-    }
 }
 
+
+// TODO: 2 clicks are needed:
 @Composable
-fun MvpButton(mvpPresenter: MvpPresenter) {
+fun MvpButton(mvpPresenter: MvpPresenter, updateText: (String) -> Unit) {
     Button(
-        onClick = { mvpPresenter.onMvpButtonClicked() },
+        onClick = {
+            mvpPresenter.onMvpButtonClicked()
+            updateText(mvpPresenter.mvpText)
+                  },
         modifier = Modifier.padding(8.dp)
     ) {
         Text("MVP")
     }
-
-    Spacer(modifier = Modifier.height(16.dp))
-
-    if (mvpPresenter.mvpText.isNotEmpty()) {
-        Text(text = mvpPresenter.mvpText)
-    }
 }
 
 @Composable
-fun MvvmButton(mvvmViewModel: MvvmViewModel) {
+fun MvvmButton(mvvmViewModel: MvvmViewModel, updateText: (String) -> Unit) {
     Button(
-        onClick = { mvvmViewModel.onMvvmButtonClick() },
+        onClick = {
+            mvvmViewModel.onMvvmButtonClick()
+            updateText(mvvmViewModel.mvvmText)
+                  },
         modifier = Modifier.padding(8.dp)
     ) {
         Text("MVVM")
-    }
-
-    Spacer(modifier = Modifier.height(16.dp))
-
-    if (mvvmViewModel.mvvmText.isNotEmpty()) {
-        Text(text = mvvmViewModel.mvvmText)
     }
 }
